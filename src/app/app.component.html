@@ -1,0 +1,57 @@
+<ng-container>
+  <mat-toolbar class="example-header">Header</mat-toolbar>
+
+  <mat-sidenav-container class="a-container">
+      <mat-sidenav #sidenav  class="sidenav" [fixedInViewport]="false">
+          <mat-toolbar  color="primary" style=" outline: outset; text-align: center;display: block;">
+              <img src="assets/imgs/logo.png" alt="" style="width: 90px">
+          </mat-toolbar>
+          <mat-nav-list>
+              <a mat-list-item routerLinkActive="active" class="menuahr" [routerLinkActiveOptions]="{exact:true}" routerLink="/dscharts" style="height: 70px;">
+                  <img src="assets/imgs/control.png" style="width: 45px;padding-right: 10px;" alt=""> Ventas
+              </a>
+              <a mat-list-item  routerLinkActive="active" class="menuahr" [routerLinkActiveOptions]="{exact:true}" routerLink="/transport"  style="height: 70px;">
+                  <img src="assets/imgs/transportista.png" style="width: 45px;padding-right: 10px;" alt=""> Compras
+              </a>
+              <a mat-list-item  routerLinkActive="active" class="menuahr" [routerLinkActiveOptions]="{exact:true}" routerLink="/detalles"  style="height: 70px;">
+                  <img src="assets/imgs/cajero.png" style="width: 45px;padding-right: 10px;" alt="" > Clientes
+              </a>
+
+              <a mat-list-item  routerLinkActive="active" class="menuahr" [routerLinkActiveOptions]="{exact:true}" routerLink="/usuarios" style="height: 70px;">
+                  <img src="assets/imgs/users.png" style="width: 45px;padding-right: 10px;" alt=""> Usuarios
+              </a>
+
+
+
+              <a mat-list-item  (click)="sidenav.toggle()" routerLinkActive="active" class="menuahr" [routerLinkActiveOptions]="{exact:true}" style="height: 70px;">
+                  <img src="assets/imgs/salir.png" style="width: 45px;padding-right: 10px;" alt="">Cerrar sesión
+              </a>
+
+          </mat-nav-list>
+
+      </mat-sidenav>
+      <mat-sidenav-content>
+
+          <mat-toolbar color="primary">
+              <mat-toolbar-row>
+                  <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="sidenav.toggle()" >
+                      <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+                  </button>
+                  <button mat-button >
+                    <mat-icon>home</mat-icon>
+                  </button>
+                  <span> Sistema de inventario</span>
+                  <span class="example-spacer"></span>
+
+
+              </mat-toolbar-row>
+          </mat-toolbar>
+
+          <div>
+               <router-outlet></router-outlet>
+          </div>
+      </mat-sidenav-content>
+  </mat-sidenav-container>
+
+  <mat-toolbar class="example-footer">Footer</mat-toolbar>
+</ng-container>
