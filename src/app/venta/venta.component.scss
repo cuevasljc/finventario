@@ -1,0 +1,20 @@
+mat-card {
+    margin: 10px; /* Añade un espacio entre las cards */
+  }
+  
+  @media screen and (max-width: 599px) {
+    /* Estilos específicos para pantallas pequeñas */
+    div[fxLayout] {
+      flex-direction: column; /* Apila los grupos uno encima del otro en pantallas pequeñas */
+    }
+  
+    div[fxFlex] {
+      width: 100% !important; /* Ocupa el ancho completo en pantallas pequeñas */
+    }
+  }
+
+  .custom-card {
+    padding: 10px; /* Adjust the padding as needed */
+    border: 1px solid #ddd; /* Add a 1px solid border with a light gray color */
+    border-radius: 4px; /* Add border-radius for rounded corners, adjust as needed */
+  }

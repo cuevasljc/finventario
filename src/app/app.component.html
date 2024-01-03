@@ -2,12 +2,12 @@
   <mat-toolbar class="example-header">Header</mat-toolbar>
 
   <mat-sidenav-container class="a-container">
-      <mat-sidenav #sidenav  class="sidenav" [fixedInViewport]="false">
+      <mat-sidenav #sidenav  class="sidenav" [fixedInViewport]="false" >
           <mat-toolbar  color="primary" style=" outline: outset; text-align: center;display: block;">
               <img src="assets/imgs/logo.png" alt="" style="width: 90px">
           </mat-toolbar>
           <mat-nav-list>
-              <a mat-list-item routerLinkActive="active" class="menuahr" [routerLinkActiveOptions]="{exact:true}" routerLink="/dscharts" style="height: 70px;">
+              <a mat-list-item routerLinkActive="active" class="menuahr" [routerLinkActiveOptions]="{exact:true}" routerLink="/venta" style="height: 70px;">
                   <img src="assets/imgs/control.png" style="width: 45px;padding-right: 10px;" alt=""> Ventas
               </a>
               <a mat-list-item  routerLinkActive="active" class="menuahr" [routerLinkActiveOptions]="{exact:true}" routerLink="/transport"  style="height: 70px;">
@@ -23,7 +23,7 @@
 
 
 
-              <a mat-list-item  (click)="sidenav.toggle()" routerLinkActive="active" class="menuahr" [routerLinkActiveOptions]="{exact:true}" style="height: 70px;">
+              <a mat-list-item  (click)="logout()" routerLinkActive="active" class="menuahr" [routerLinkActiveOptions]="{exact:true}" style="height: 70px;">
                   <img src="assets/imgs/salir.png" style="width: 45px;padding-right: 10px;" alt="">Cerrar sesión
               </a>
 
@@ -34,7 +34,7 @@
 
           <mat-toolbar color="primary">
               <mat-toolbar-row>
-                  <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="sidenav.toggle()" >
+                  <button *ngIf="isAuthenticated" type="button" aria-label="Toggle sidenav" mat-icon-button (click)="sidenav.toggle()">
                       <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
                   </button>
                   <button mat-button >

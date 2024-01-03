@@ -1,0 +1,157 @@
+<!-- venta.component.html -->
+<mat-horizontal-stepper>
+  <!-- Paso 1: Búsqueda de producto -->
+  <mat-step>
+    <ng-template matStepLabel>Detalles de Producto</ng-template>
+    <div fxLayout="row wrap" fxLayoutAlign="center">
+      <!-- First group -->
+      <div fxFlex.gt-md="50" fxLayoutAlign="center">
+        <mat-card fxFlex.gt-md="100%" class="custom-card">
+          <!-- Contenido del primer grupo -->
+          <form [formGroup]="itemForm">
+            
+            <h3>Buscar producto</h3>
+            <mat-form-field>
+              <input matInput formControlName="codigo" placeholder="Código" #codigoInput>
+            </mat-form-field>
+            <button mat-button (click)="searchItem()">Buscar</button>
+
+
+            <!-- Mostrar el resultado de la búsqueda -->
+            <div>
+              <h3>Detalles del Producto</h3>
+              <p *ngIf="selectedItem">Código: {{ selectedItem.codigo }}</p>
+              <p *ngIf="selectedItem">Nombre: {{ selectedItem.nombre }}</p>
+              <p *ngIf="selectedItem">Marca: {{ selectedItem.marca }}</p>
+              <p *ngIf="selectedItem">Stock: {{ selectedItem.stock }}</p>
+              <mat-form-field>
+                <input matInput formControlName="cantidad" placeholder="Cantidad" [value]="1" #cantidadInput
+                  (keydown.enter)="agregarItem()">
+              </mat-form-field>
+              <button mat-button (click)="agregarItem()">Agregar</button>
+            </div>
+          </form>
+        </mat-card>
+      </div>
+
+      <!-- Second group -->
+      <div fxFlex.gt-md="50" fxLayoutAlign="center">
+        <mat-card fxFlex.gt-md="100%" class="custom-card">
+          <!-- Contenido del segundo grupo -->
+          <!-- Mostrar una tabla si hay múltiples resultados -->
+          <div>
+            <h3>Detalles de Venta</h3>
+            <table>
+              <thead>
+                <tr>
+                  <th>Código</th>
+                  <th>Nombre</th>
+                  <th>Marca</th>
+                  <th>Cantidad</th>
+                  <th>Precio</th>
+                  <th>Total</th>
+                  <th>Acciones</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let detalle of ventaDetalles; let i = index">
+                  <td>{{ detalle.codigo }}</td>
+                  <td>{{ detalle.nombre }}</td>
+                  <td>{{ detalle.marca }}</td>
+                  <td>
+                    <input type="number" [(ngModel)]="detalle.cantidad" (change)="updateCantidad(detalle, $event)" />
+                  </td>
+                  <td>{{ detalle.precio}}</td>
+                  <td>{{ detalle.precioTotal}}</td>
+                  <td>
+                    <button mat-button (click)="quitarProducto(i)">Quitar</button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <div style="margin-top: auto;"> <!-- Alinea al final del contenedor -->
+              <h4>Total General: {{ getSumaTotal() | currency:'Bs. ' }}</h4>
+            </div>
+          </div>
+        </mat-card>
+      </div>
+    </div>
+  </mat-step>
+
+  <mat-step>
+    <ng-template matStepLabel>Detalles de Producto</ng-template>
+    <div fxLayout="row wrap" fxLayoutAlign="center">
+      <!-- First group -->
+      <div fxFlex.gt-md="50" fxLayoutAlign="center">
+        <mat-card fxFlex.gt-md="100%" class="custom-card">
+          <!-- Contenido del grupo para la búsqueda y edición de clientes -->
+          <form [formGroup]="clientForm">
+            <h3>Buscar cliente</h3>
+            <mat-form-field>
+              <input matInput formControlName="nit" placeholder="NIT" #nitInput>
+            </mat-form-field>
+            <button mat-button (click)="searchClient()">Buscar</button>
+      
+            <!-- Mostrar el resultado de la búsqueda y permitir la edición del cliente -->
+            <div fxLayout="column">
+              <h3>Detalles del Cliente</h3>
+              <mat-form-field>
+                <input matInput formControlName="nombre" placeholder="Nombre/Razón social">
+              </mat-form-field>
+              <mat-form-field>
+                <input matInput formControlName="telefono" placeholder="Teléfono">
+              </mat-form-field>
+              <mat-form-field>
+                <input matInput formControlName="direccion" placeholder="Dirección">
+              </mat-form-field>
+              <button mat-button (click)="updateClient()">Actualizar</button>
+            </div>
+          </form>
+        </mat-card>
+      </div>
+      
+      <!-- Second group -->
+      <div fxFlex.gt-md="50" fxLayoutAlign="center">
+        <mat-card fxFlex.gt-md="100%" class="custom-card">
+          <!-- Contenido del segundo grupo -->
+          <!-- Mostrar una tabla si hay múltiples resultados -->
+          <div>
+            <h3>Detalles de Venta</h3>
+            <table>
+              <thead>
+                <tr>
+                  <th>Código</th>
+                  <th>Nombre</th>
+                  <th>Marca</th>
+                  <th>Cantidad</th>
+                  <th>Precio</th>
+                  <th>Total</th>
+                  <th>Acciones</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let detalle of ventaDetalles; let i = index">
+                  <td>{{ detalle.codigo }}</td>
+                  <td>{{ detalle.nombre }}</td>
+                  <td>{{ detalle.marca }}</td>
+                  <td>
+                    <input type="number" [(ngModel)]="detalle.cantidad" (change)="updateCantidad(detalle, $event)" />
+                  </td>
+                  <td>{{ detalle.precio}}</td>
+                  <td>{{ detalle.precioTotal}}</td>
+                  <td>
+                    <button mat-button (click)="quitarProducto(i)">Quitar</button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <div style="margin-top: auto;"> <!-- Alinea al final del contenedor -->
+              <h4>Total General: {{ getSumaTotal() | currency:'Bs. ' }}</h4>
+            </div>
+          </div>
+        </mat-card>
+      </div>
+    </div>
+  </mat-step>
+
+</mat-horizontal-stepper>

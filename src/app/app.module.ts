@@ -13,14 +13,31 @@ import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { HomeComponent } from './home/home.component';
 import { MaterialModule } from './material-module';
+import { VentaComponent } from './venta/venta.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { Restangular, RestangularModule } from 'ngx-restangular';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    HomeComponent
+    HomeComponent,
+    VentaComponent
   ],
   imports: [
+    RestangularModule.forRoot((RestangularProvider) => {
+      RestangularProvider.setBaseUrl('http://127.0.0.1:8000/api/'); // Set your API server URL here
+      RestangularProvider.addFullRequestInterceptor((requestParams: { headers: { Authorization?: any; }; }, operation:string, path:string) => {
+        const token = localStorage.getItem('auth_token'); // Get the token from localStorage
+        if (token) {
+          requestParams.headers = requestParams.headers || {};
+          requestParams.headers.Authorization = `Bearer ${token}`;
+        }
+        return requestParams;
+      });
+    }),
+    FlexLayoutModule,
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
@@ -31,8 +48,9 @@ import { MaterialModule } from './material-module';
     MatInputModule,
     MatButtonModule,
     MaterialModule,
+    ReactiveFormsModule,
   ],
   bootstrap: [AppComponent],
-  providers: [AuthService],  // Agrega tu servicio aquí
+  providers: [AuthService, Restangular],  // Agrega tu servicio aquí
 })
 export class AppModule { }
